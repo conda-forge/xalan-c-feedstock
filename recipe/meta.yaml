@@ -1,5 +1,5 @@
 {% set name = "xalan-c" %}
-{% set version = "1.11" %}
+{% set version = "1.12" %}
 
 package:
   name: {{ name|lower }}
@@ -8,10 +8,10 @@ package:
 source:
   # xalan lib uses <major>_<minor> in links intead of <major>.<minor>
   url: https://github.com/apache/xalan-c/archive/Xalan-C_{{ version|replace(".","_") }}_0.tar.gz
-  sha256: edfaee4562d9dec4d0a971e06cc6355f8c822ce49f18beba095f8a4dc93b4285
+  sha256: f3d4f23af7f7914259f2f5dbd9cc1450d3ebe0b8c8163fd50fcac4a39c63fccd
 
 build:
-  skip: True  # [win]
+  skip: true  # [win]
   number: 0
 
 requirements:
@@ -19,7 +19,7 @@ requirements:
     - make
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
-  
+
   host:
     - xerces-c >=3
 
@@ -35,7 +35,7 @@ about:
   home: https://github.com/simplejson/simplejson
   license: Apache-2.0
   license_file: LICENSE
-  summary: 'Command line program to transform XML documents using a stylesheet that conforms to XSLT 1.0 standards.'
+  summary: Command line program to transform XML documents using a stylesheet that conforms to XSLT 1.0 standards.
 
   description: |
     The Apache Xalan C/C++ Project provides a library and a 
