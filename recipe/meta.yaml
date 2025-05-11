@@ -23,7 +23,10 @@ requirements:
     - {{ stdlib('c') }}
 
   host:
-    - xerces-c >=3
+    - xerces-c >=3.2,<3.3
+
+  run:
+    - xerces-c >=3.2,<3.3
 
 test:
   commands:
