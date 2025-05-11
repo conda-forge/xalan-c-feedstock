@@ -26,7 +26,3 @@ zip_keys:
 - - c_compiler_version
   - cxx_compiler_version
 
-
-CONDA_BUILD_SYSROOT:
-- /Users/oalexan1/projects/osx_sdk/MacOSX11.0.sdk
-
