@@ -1,18 +1,17 @@
 #!/bin/bash
-# Get an updated config.sub and config.guess
-cp $BUILD_PREFIX/share/gnuconfig/config.* .
 
-export XERCESCROOT=${PREFIX}
-export XALANCROOT=${SRC_DIR}
+# Force C++ 17
+perl -pi -e "s#CMAKE_CXX_STANDARD\s+\d+#CMAKE_CXX_STANDARD 17#g" CMakeLists.txt 
 
-if [[ ${target_platform} == osx-64 ]]; then
-    platform=macosx
-else
-    platform=linux
-    export CXXCPP=${CPP}
-fi
+mkdir build && cd build
+cmake \
+  -DCMAKE_BUILD_TYPE=Release \
+  -DCMAKE_INSTALL_PREFIX=$PREFIX \
+  -DCMAKE_PREFIX_PATH=$PREFIX \
+  -DCMAKE_POLICY_VERSION_MINIMUM=3.15 \
+  -DCMAKE_C_FLAGS="-Wno-error" \
+  -DCMAKE_CXX_FLAGS="-Wno-error -fpermissive" \
+  -DCMAKE_VERBOSE_MAKEFILE=ON \
+  $SRC_DIR
+make -j $CPU_COUNT install
 
-./runConfigure -p ${platform} -c $CC -x $CXX -b 64 -P ${PREFIX}
-
-make
-make install
