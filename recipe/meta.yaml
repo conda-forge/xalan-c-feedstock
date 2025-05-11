@@ -9,8 +9,6 @@ source:
   # xalan lib uses <major>_<minor> in links instead of <major>.<minor>
   url: https://github.com/apache/xalan-c/archive/refs/tags/Xalan-C_{{ version|replace(".","_") }}_0.zip
   sha256: 50bb8107c41c9e65410371e1272c66cb49531b9a3b2a55ccb62ad57dd3a35a4d
-  patches:
-    - patches/dead_code_patch.patch
 
 build:
   skip: True  # [win]
