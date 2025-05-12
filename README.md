@@ -14,7 +14,7 @@ Development: https://github.com/apache/xalan-c
 Documentation: https://xalan.apache.org/xalan-c/index.html
 
 The Apache Xalan C/C++ Project provides a library and a
-comand line program to transform XML documents using a
+command line program to transform XML documents using a
 stylesheet that conforms to XSLT 1.0 standards.
 
 The source package contains all the code to create the library,
@@ -196,5 +196,6 @@ In order to produce a uniquely identifiable distribution:
 Feedstock Maintainers
 =====================
 
+* [@andrewannex](https://github.com/andrewannex/)
 * [@kelvinrr](https://github.com/kelvinrr/)
 
