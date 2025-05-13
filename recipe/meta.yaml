@@ -21,6 +21,8 @@ requirements:
     - cmake
     - ninja
     - sed
+    - icu                   # [build_platform != target_platform]
+    - xerces-c >=3          # [build_platform != target_platform]
   host:
     - icu
     - xerces-c >=3
