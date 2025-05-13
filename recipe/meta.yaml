@@ -1,5 +1,5 @@
 {% set name = "xalan-c" %}
-{% set version = "1.11" %}
+{% set version = "1.12" %}
 
 package:
   name: {{ name|lower }}
@@ -7,30 +7,28 @@ package:
 
 source:
   # xalan lib uses <major>_<minor> in links intead of <major>.<minor>
-  url: https://github.com/apache/xalan-c/archive/Xalan-C_{{ version|replace(".","_") }}_0.tar.gz
-  sha256: edfaee4562d9dec4d0a971e06cc6355f8c822ce49f18beba095f8a4dc93b4285
+  url: https://github.com/apache/xalan-c/archive/refs/tags/Xalan-C_{{ version|replace(".","_") }}_0.zip
+  sha256: 50bb8107c41c9e65410371e1272c66cb49531b9a3b2a55ccb62ad57dd3a35a4d
 
 build:
-  skip: True  # [win]
   number: 0
 
 requirements:
   build:
-    - make
-    - gnuconfig  # [unix]
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
-  
+    - cmake
+    - ninja
   host:
     - xerces-c >=3
 
 test:
-  commands:
-    - test -f ${PREFIX}/include/xalanc/XPathCAPI/XPathCAPI.h
-    - test -f ${PREFIX}/include/xalanc/XPath/XPath.hpp
-    - test -f ${PREFIX}/lib/libxalan-c${SHLIB_EXT}
-    - test -f ${PREFIX}/lib/libxalanMsg${SHLIB_EXT}
-    - test -f ${PREFIX}/bin/Xalan
+  commands: |
+    test -f ${PREFIX}/include/xalanc/XPathCAPI/XPathCAPI.h
+    test -f ${PREFIX}/include/xalanc/XPath/XPath.hpp
+    test -f ${PREFIX}/lib/libxalan-c${SHLIB_EXT}
+    test -f ${PREFIX}/lib/libxalanMsg${SHLIB_EXT}
+    Xalan --help 2>&1 | grep -q "Usage: Xalan"
 
 about:
   home: https://github.com/simplejson/simplejson
@@ -60,4 +58,5 @@ about:
 extra:
   recipe-maintainers:
     - andrewannex
+    - danielnachun
     - kelvinrr
