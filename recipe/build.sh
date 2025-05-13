@@ -13,10 +13,12 @@ if [[ ${CONDA_BUILD_CROSS_COMPILATION:-0} == 1 ]]; then
 
     CROSS_LDFLAGS=${LDFLAGS}
     CROSS_CC="${CC}"
+    CROSS_CXX="${CXX}"
     CROSS_LD="${LD}"
 
     LDFLAGS=${LDFLAGS//${PREFIX}/${BUILD_PREFIX}}
     CC=${CC//${CONDA_TOOLCHAIN_HOST}/${CONDA_TOOLCHAIN_BUILD}}
+    CXX=${CXX//${CONDA_TOOLCHAIN_HOST}/${CONDA_TOOLCHAIN_BUILD}}
     LD="${LD//${CONDA_TOOLCHAIN_HOST}/${CONDA_TOOLCHAIN_BUILD}}"
 
     cmake -G Ninja -S . -B build_host \
@@ -31,6 +33,7 @@ if [[ ${CONDA_BUILD_CROSS_COMPILATION:-0} == 1 ]]; then
 
     LDFLAGS="${CROSS_LDFLAGS}"
     CC=${CROSS_CC}
+    CXX=${CROSS_CXX}
     LD=${CROSS_LD}
 
     sed -i -e "s,\$<TARGET_FILE:MsgCreator>,${BUILD_PREFIX}/bin/MsgCreator,g" src/xalanc/Utils/CMakeLists.txt
