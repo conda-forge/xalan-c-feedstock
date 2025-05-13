@@ -4,7 +4,7 @@
 perl -pi -e "s#CMAKE_CXX_STANDARD\s+\d+#CMAKE_CXX_STANDARD 17#g" CMakeLists.txt 
 
 mkdir build && cd build
-cmake \
+cmake ${CMAKE_ARGS} \
   -DCMAKE_BUILD_TYPE=Release \
   -DCMAKE_INSTALL_PREFIX=$PREFIX \
   -DCMAKE_PREFIX_PATH=$PREFIX \
