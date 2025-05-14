@@ -24,8 +24,7 @@ if [[ ${CONDA_BUILD_CROSS_COMPILATION:-0} == 1 ]]; then
 
     cmake -G Ninja -S . -B build_host \
         -DCMAKE_POLICY_VERSION_MINIMUM=3.15 \
-        -DICU_UC_LIBRARY=${BUILD_PREFIX}/lib/libicuuc${SHLIB_EXT} \
-        -DICU_I18N_LIBRARY=${BUILD_PREFIX}/lib/libicui18n${SHLIB_EXT} \
+        -DICU_ROOT=${BUILD_PREFIX} \
         -DXercesC_LIBRARY=${BUILD_PREFIX}/lib/libxerces-c${SHLIB_EXT} \
         -DCMAKE_BUILD_TYPE=Release \
         -DCMAKE_VERBOSE_MAKEFILE=ON \
@@ -55,5 +54,3 @@ cmake -G Ninja -S . -B build \
 
 cmake --build build -j${CPU_COUNT}
 cmake --install build
-
-exit 1
