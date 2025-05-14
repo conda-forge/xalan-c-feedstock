@@ -21,10 +21,12 @@ if [[ ${CONDA_BUILD_CROSS_COMPILATION:-0} == 1 ]]; then
     CC=${CC//${CONDA_TOOLCHAIN_HOST}/${CONDA_TOOLCHAIN_BUILD}}
     CXX=${CXX//${CONDA_TOOLCHAIN_HOST}/${CONDA_TOOLCHAIN_BUILD}}
     LD="${LD//${CONDA_TOOLCHAIN_HOST}/${CONDA_TOOLCHAIN_BUILD}}"
-    PKG_CONFIG_PATH=${PKG_CONFIG_PATH//${PREFIX}/${BUILD_PREFIX}}
 
     cmake -G Ninja -S . -B build_host \
         -DCMAKE_POLICY_VERSION_MINIMUM=3.15 \
+        -DICU_UC_LIBRARY=${BUILD_PREFIX}/lib/libicuuc${SHLIB_EXT} \
+        -DICU_I18N_LIBRARY=${BUILD_PREFIX}/lib/libicui18n${SHLIB_EXT} \
+        -DXercesC_LIBRARY=${BUILD_PREFIX}/lib/libxerces-c${SHLIB_EXT} \
         -DCMAKE_BUILD_TYPE=Release \
         -DCMAKE_VERBOSE_MAKEFILE=ON \
         -Wno-dev \
@@ -37,7 +39,6 @@ if [[ ${CONDA_BUILD_CROSS_COMPILATION:-0} == 1 ]]; then
     CC=${CROSS_CC}
     CXX=${CROSS_CXX}
     LD=${CROSS_LD}
-    PKG_CONFIG_PATH=${CROSS_PKG_CONFIG_PATH}
 
     sed -i -e "s,\$<TARGET_FILE:MsgCreator>,${BUILD_PREFIX}/bin/MsgCreator,g" src/xalanc/Utils/CMakeLists.txt
     sed -i -e "/add_subdirectory(samples)/d" CMakeLists.txt
@@ -54,3 +55,5 @@ cmake -G Ninja -S . -B build \
 
 cmake --build build -j${CPU_COUNT}
 cmake --install build
+
+exit 1
