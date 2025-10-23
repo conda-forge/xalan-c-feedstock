@@ -12,13 +12,14 @@ source:
 
 build:
   skip: True  # [win]
-  number: 0
+  number: 1
 
 requirements:
   build:
     - make
     - gnuconfig  # [unix]
     - {{ compiler('c') }}
+    - {{ stdlib("c") }}
     - {{ compiler('cxx') }}
   
   host:
