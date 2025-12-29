@@ -1,14 +1,16 @@
 {% set name = "xalan-c" %}
-{% set version = "1.11" %}
+{% set version = "1.12" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  # xalan lib uses <major>_<minor> in links intead of <major>.<minor>
-  url: https://github.com/apache/xalan-c/archive/Xalan-C_{{ version|replace(".","_") }}_0.tar.gz
-  sha256: edfaee4562d9dec4d0a971e06cc6355f8c822ce49f18beba095f8a4dc93b4285
+  # xalan lib uses <major>_<minor> in links instead of <major>.<minor>
+  url: https://github.com/apache/xalan-c/archive/refs/tags/Xalan-C_{{ version|replace(".","_") }}_0.zip
+  sha256: 50bb8107c41c9e65410371e1272c66cb49531b9a3b2a55ccb62ad57dd3a35a4d
+  patches:
+    - patches/0001-clang19-gcc15-compat.patch
 
 build:
   skip: True  # [win]
@@ -16,13 +18,19 @@ build:
 
 requirements:
   build:
+    - cmake >=3.15
+    - ninja
     - make
-    - gnuconfig  # [unix]
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
-  
+    - {{ stdlib('c') }}
+    - icu
+
   host:
-    - xerces-c >=3
+    - xerces-c >=3.3,<3.4
+
+  run:
+    - xerces-c >=3.3,<3.4
 
 test:
   commands:
@@ -40,7 +48,7 @@ about:
 
   description: |
     The Apache Xalan C/C++ Project provides a library and a 
-    comand line program to transform XML documents using a
+    command line program to transform XML documents using a
     stylesheet that conforms to XSLT 1.0 standards.
 
     The source package contains all the code to create the library,
