@@ -14,7 +14,7 @@ source:
 
 build:
   skip: True  # [win]
-  number: 0
+  number: 1
 
 requirements:
   build:
@@ -24,7 +24,7 @@ requirements:
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
     - {{ stdlib('c') }}
-    - icu
+    - icu >=75,<76
 
   host:
     - xerces-c >=3.3,<3.4
