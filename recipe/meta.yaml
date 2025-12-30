@@ -24,9 +24,9 @@ requirements:
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
     - {{ stdlib('c') }}
-    - icu
 
   host:
+    - icu
     - xerces-c >=3.3,<3.4
 
   run:
